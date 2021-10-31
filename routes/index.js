@@ -145,12 +145,7 @@ router.post('/apply',async(req,res)=>{
   try {
     const db = client.db("placements");
     let data = await db.collection("jobs").findOne({_id:jobId})
-    
-    if(data.applicants.applied.indexOf(id)||data.applicants.rejected.indexOf(id))
     {
-      res.send({message:"You have already applied for this job"})
-    }
-    else{
         data.applicants.applied.push(id);
         let update = await db.collection("jobs").updateOne({_id:jobId},{$set:{applicants:data.applicants}})
 
